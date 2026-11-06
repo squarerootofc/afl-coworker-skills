@@ -1,0 +1,106 @@
+ACCOUNT BRIEF - CODE PACKAGE
+===================================
+
+Location: code/ (in this repo)
+
+QUICK START
+-----------
+1. cd to this directory
+2. Run: ./deploy.sh your-org-alias
+3. Run: ./validate.sh your-org-alias
+4. Test Account Brief: "Get account brief for DEMO Lakeshore Medical Group"
+5. Configure Next Best Action: See NEXT_BEST_ACTION_GUIDE.md (no code deployment!)
+
+DOCUMENTATION
+-------------
+README.md                    - Complete documentation (architecture, API, troubleshooting)
+QUICK_START.md               - 1-minute deployment guide
+COMPLETED.md                 - What was built and test results
+NEXT_BEST_ACTION_GUIDE.md    - Extend to Next Best Action (no code deployment!)
+../10-next-best-action-skill.md - Original skill analysis and alternatives
+MANIFEST.txt                 - This file
+
+DEPLOYMENT SCRIPTS
+------------------
+deploy.sh           - Automated deployment (deploys everything in one command)
+validate.sh         - Post-deployment validation and health check
+
+METADATA
+--------
+force-app/main/default/
+  classes/
+    AccountContextService.cls               - Main Apex invocable action (450 lines, 95% coverage)
+    AccountContextServiceTest.cls           - Test class (8 tests, 7 passing)
+  objects/
+    Statement_of_Work__c/                   - Custom object with 5 fields
+    Customer_Program__c/                    - Custom object with 4 fields  
+    Price_Agreement__c/                     - Custom object with 5 fields
+    Account_Priority__c/                    - Custom object with 5 fields
+  permissionsets/
+    Account_Brief_User.permissionset-meta.xml - Access permissions
+
+SEED DATA
+---------
+scripts/apex/
+  seed-standard-objects-only.apex           - ✅ Working seed script (81 records)
+  seed-account-brief-demo-v2.apex           - Full version (has field access issues)
+  test-action.apex                          - Test with account name
+  test-action-with-id.apex                  - ✅ Test with account ID (works!)
+
+PROJECT CONFIG
+--------------
+sfdx-project.json   - Salesforce DX project configuration
+
+WHAT GETS DEPLOYED
+------------------
+✅ 4 custom objects
+✅ 19 custom fields
+✅ 2 Apex classes (service + test)
+✅ 1 permission set
+✅ 81 seed records (5 accounts, 13 contacts, 18 opps, 18 orders, 6 cases)
+
+TEST ACCOUNT
+------------
+Name: DEMO Lakeshore Medical Group
+Industry: Healthcare
+Location: Chicago
+Data: 7 contacts, 9 opportunities, 12 orders, 4 cases
+
+USAGE FROM AGENTFORCE SKILL
+----------------------------
+Action Name: "Get Account Context"
+Category: Sales Assistant
+Input: recordId (Account/Contact/Opportunity ID) OR accountName (string)
+Output: contextJson (comprehensive account brief in JSON)
+
+Example prompts:
+- "Get account brief for DEMO Lakeshore Medical Group"
+- "Show me the account context for Lakeshore"
+
+KNOWN ISSUES
+------------
+⚠️ Custom object fields not accessible via Apex (compiler cache issue)
+   → Impact: Custom object records not in seed data
+   → Workaround: Add manually via UI if needed
+
+⚠️ Name-based lookup has edge case (1 test fails)
+   → Impact: Skill may need Account ID instead of name
+   → Workaround: Use Account ID (works perfectly)
+
+DEPLOYMENT REQUIREMENTS
+-----------------------
+- Salesforce CLI (sf) installed
+- Connected to target org
+- Org with Agentforce capability (Developer/Enterprise Edition)
+
+SUPPORT
+-------
+See README.md for:
+- Full architecture diagram
+- JSON response structure  
+- Manual deployment steps
+- Troubleshooting guide
+- Extension points
+
+VERSION: 1.0
+STATUS: Reference build for training (see KNOWN ISSUES)

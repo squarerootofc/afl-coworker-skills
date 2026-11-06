@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_Type__c</fullName>
+    <label>Program Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Healthcare</fullName>
+                <default>false</default>
+                <label>Healthcare</label>
+            </value>
+            <value>
+                <fullName>Education</fullName>
+                <default>false</default>
+                <label>Education</label>
+            </value>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>Gov</fullName>
+                <default>false</default>
+                <label>Gov</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
